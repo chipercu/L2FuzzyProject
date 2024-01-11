@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id ("de.jjohannes.extra-java-module-info") version "0.15"
+    id "org.checkerframework" version "0.6.15" //https://github.com/kelloggm/checkerframework-gradle-plugin
+}
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+version '1.0.1.0'
+
+group 'com.fuzzy'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://maven.corp.infomaximum.com/repository/maven-releases/"}
+    maven { url "https://maven.corp.infomaximum.com/repository/maven-snapshots/" }
+}
+
+dependencies {
+    compileOnly project(':subsystem')
+  //  implementation('io.quarkus:quarkus-junit4-mock:3.6.0')
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.8.2'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.22.0'
+}
+
+extraJavaModuleInfo {
+    module("com.google.flogger:flogger", "com.google.flogger.flogger") {}
+    module("com.google.flogger:flogger-system-backend", "com.google.flogger.floggersystembackend") {}
+    module("com.google.re2j:re2j", "com.google.re2j.re2j") {}
+    module("com.google.mug:mug", "com.google.mug.mug") {}
+    module("com.google.auto.value:auto-value-annotations", "com.google.auto.value.autovalueannotations") {}
+    module("io.github.cdimascio:java-dotenv", "io.github.cdimascio.javadotenv") {}
+    module("org.checkerframework:checker-compat-qual", "org.checkerframework.checkercompatqual") {}
+    module("com.google.code.findbugs:jsr305", "com.google.code.findbugs.jsr305") {}
+    module("aopalliance:aopalliance", "aopalliance.aopalliance") {}
+    module("io.reactivex.rxjava2:rxjava", "io.reactivex.rxjava2.rxjava") {}
+    module("org.jetbrains.kotlin:kotlin-stdlib-common", "org.jetbrains.kotlin.kotlinstdlibcommon") {}
+    module("org.jetbrains:annotations", "org.jetbrains.annotations") {}
+}
+
+test {
+    useJUnitPlatform()
+}

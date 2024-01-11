@@ -1,0 +1,4 @@
+rootProject.name = 'L2FuzzyProject'
+
+include ':subsystem'
+project(':subsystem').projectDir = new File(settingsDir, '../subsystem')
